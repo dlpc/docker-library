@@ -1,13 +1,14 @@
 stages:
   - docker-build
 before_script:
-  - esimage=nexus.quancheng-ec.com:5000/saluki-example-client:2.4.3 
+  - esimage=nexus.quancheng-ec.com:5000/elasticsearch:2.4.3 
   - hostname -i
   - whoami
 build_images:
    stage: docker-build
    script:
     - if [ "`docker images | awk '/^nexus.quancheng-ec.com:5000/ { print $3 }'`" ]; then docker rmi -f $(docker images | awk '/^nexus.quancheng-ec.com:5000/ { print $3 }' ); fi
+    - docker rmi -f 
     - cd elasticsearch/2.4/
     - echo "Build Docker Image..."
     - docker build --no-cache -t $esimage .
