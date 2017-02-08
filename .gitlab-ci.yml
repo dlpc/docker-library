@@ -8,7 +8,7 @@ build_images:
    stage: docker-build
    script:
     - if [ "`docker images | awk '/^nexus.quancheng-ec.com:5000/ { print $3 }'`" ]; then docker rmi -f $(docker images | awk '/^nexus.quancheng-ec.com:5000/ { print $3 }' ); fi
-    - cd elasticsearch/
+    - cd elasticsearch/2.4/
     - echo "Build Docker Image..."
     - docker build --no-cache -t $esimage .
     - echo "Push Image:" $esimage " to repository..."
